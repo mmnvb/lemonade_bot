@@ -78,7 +78,7 @@ async def song_artist_edit(callback: CallbackQuery):
 
 
 # artist search
-async def artist_search(callback: CallbackQuery, state=FSMContext):
+async def artist_search(callback: CallbackQuery, state: FSMContext):
     async with state.proxy() as data:
         data['song'] = callback.message.audio.title
     await callback.message.delete()

@@ -11,6 +11,7 @@ class FsmEdit(StatesGroup):
 class FsmPost(StatesGroup):
     text = State()
     media = State()
+    decide = State()
 
 
 class FsmLoad(StatesGroup):

@@ -46,7 +46,7 @@ async def search_artist_db(text):
 async def add_artist_db(artist):
     base = sql.connect(location)
     cursor = base.cursor()
-    cursor.execute(f'''INSERT INTO configures VALUES ('{artist}')''')
+    cursor.execute(f'''INSERT INTO configures VALUES ("{artist}")''')
     base.commit()
 
 
@@ -75,7 +75,7 @@ async def get_songs_db(start, finish):
 async def search_song_db(text):
     base = sql.connect(location)
     cursor = base.cursor()
-    cursor.execute(f'''SELECT song, artist, ROWID FROM audios WHERE artist LIKE '%{text}%' OR song LIKE '%{text}%'\
+    cursor.execute(f'''SELECT song, artist, ROWID FROM audios WHERE artist LIKE "%{text}%" OR song LIKE "%{text}%"\
     ORDER by ROWID DESC''')
     return cursor.fetchmany(20)
 
@@ -90,49 +90,49 @@ async def get_song_db(text):
 async def get_song_title_db(text):
     base = sql.connect(location)
     cursor = base.cursor()
-    cursor.execute(f'''SELECT id FROM audios WHERE song = '{text}' ''')
+    cursor.execute(f'''SELECT id FROM audios WHERE song = "{text}" ''')
     return cursor.fetchone()[0]
 
 
 async def get_vibe_db(title):
     base = sql.connect(location)
     cursor = base.cursor()
-    cursor.execute(f'''SELECT vibe FROM audios WHERE song LIKE '%{title}%' ''')
+    cursor.execute(f'''SELECT vibe FROM audios WHERE song LIKE "%{title}%" ''')
     return cursor.fetchone()[0]
 
 
 async def edit_vibe_db(vibes, title):
     base = sql.connect(location)
     cursor = base.cursor()
-    cursor.execute(f"""UPDATE audios SET vibe='{vibes}' WHERE song LIKE '%{title}%'""")
+    cursor.execute(f"""UPDATE audios SET vibe='{vibes}' WHERE song LIKE "%{title}%" """)
     base.commit()
 
 
 async def delete_song_db(title):
     base = sql.connect(location)
     cursor = base.cursor()
-    cursor.execute(f"""DELETE FROM audios WHERE song ='{title}'""")
+    cursor.execute(f"""DELETE FROM audios WHERE song = "{title}" """)
     base.commit()
 
 
 async def get_artist_db(title):
     base = sql.connect(location)
     cursor = base.cursor()
-    cursor.execute(f'''SELECT artist FROM audios WHERE song LIKE '%{title}%' ''')
+    cursor.execute(f'''SELECT artist FROM audios WHERE song LIKE "%{title}%" ''')
     return cursor.fetchone()[0]
 
 
 async def remove_artist_db(artist):
     base = sql.connect(location)
     cursor = base.cursor()
-    cursor.execute(f"""DELETE FROM configures WHERE artists = '{artist}' """)
+    cursor.execute(f"""DELETE FROM configures WHERE artists = "{artist}" """)
     base.commit()
 
 
 async def select_artist_db(artist, title):
     base = sql.connect(location)
     cursor = base.cursor()
-    cursor.execute(f"""UPDATE audios SET artist = '{artist}' WHERE song='{title}'""")
+    cursor.execute(f"""UPDATE audios SET artist = "{artist}" WHERE song="{title}" """)
     base.commit()
 
 
@@ -162,3 +162,10 @@ async def register_user_activity(user_id):
     cursor = base.cursor()
     cursor.execute(f'''UPDATE users SET active = 1 WHERE id = {user_id}''')
     base.commit()
+
+
+async def get_all_users_db():
+    base = sql.connect(location)
+    cursor = base.cursor()
+    cursor.execute("SELECT id FROM users")
+    return [r[0] for r in cursor.fetchall()]

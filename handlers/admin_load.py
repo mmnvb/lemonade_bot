@@ -43,7 +43,7 @@ async def add_artist(callback: CallbackQuery):
     await FsmLoad.add_artist_state.set()
 
 
-async def save_artist(msg: Message, state=FSMContext):
+async def save_artist(msg: Message, state: FSMContext):
     try:
         await (search_given := gather(search_artist_db(msg.text)))
         assert search_given.result()[0] == list()
@@ -65,7 +65,7 @@ async def add_artist_de_confirm(callback: CallbackQuery):
     await set_artist_kb(callback.message)
 
 
-async def add_artist_confirm(callback: CallbackQuery, state=FSMContext):
+async def add_artist_confirm(callback: CallbackQuery, state: FSMContext):
     async with state.proxy() as data:
         await add_artist_db(data['new_artist'])
         await callback.answer('🟢Success!', show_alert=True)
@@ -73,7 +73,7 @@ async def add_artist_confirm(callback: CallbackQuery, state=FSMContext):
 
 
 # choose vibe
-async def artist_writer(callback: CallbackQuery, state=FSMContext):
+async def artist_writer(callback: CallbackQuery, state: FSMContext):
     async with state.proxy() as data:
         data['artist'] = callback.data
     await callback.answer(f'🟢{callback.data} selected')
@@ -82,7 +82,7 @@ async def artist_writer(callback: CallbackQuery, state=FSMContext):
     await vibe_choose_kb(callback.message)
 
 
-async def set_vibe(callback: CallbackQuery, state=FSMContext):
+async def set_vibe(callback: CallbackQuery, state: FSMContext):
     await callback.answer('🟢Vibe selected')
     async with state.proxy() as data:
         data['vibe'] = callback.data
@@ -106,7 +106,7 @@ async def to_start(callback: CallbackQuery):
     await callback.message.delete()
 
 
-async def to_menu(callback: CallbackQuery, state=FSMContext):
+async def to_menu(callback: CallbackQuery, state: FSMContext):
     await state.finish()
     await callback.message.delete()
     await callback.message.answer(f'😏Good job {callback.from_user.first_name}', reply_markup=admin_menu_kb)

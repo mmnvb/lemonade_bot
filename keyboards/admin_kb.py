@@ -3,7 +3,7 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMar
 from asyncio import gather
 from data_base.main_db import get_artists, search_artist_db, get_songs_db, search_song_db, get_song_db,\
     get_vibe_db, get_artist_db, get_song_title_db
-from aiogram.types import ParseMode, Message, CallbackQuery
+from aiogram.types import Message, CallbackQuery
 from aiogram.dispatcher import FSMContext
 
 button = InlineKeyboardButton
@@ -46,8 +46,7 @@ async def confirm_artist_add(msg: Message):
     inline_artist_confirm_kb.add(button(text='✅Sure', callback_data='artist_add_confirm'))
     inline_artist_confirm_kb.insert(button(text='❌Nope', callback_data='artist_add_de_confirm'))
     await msg.reply(f'<b>Are you sure</b> that\nyou want to add <code>{msg.text}</code>?',
-                    reply_markup=inline_artist_confirm_kb,
-                    parse_mode=ParseMode.HTML)
+                    reply_markup=inline_artist_confirm_kb)
 
 
 async def vibe_choose_kb(msg: Message):
@@ -181,7 +180,7 @@ async def edit_artist_kb(callback: CallbackQuery):
 
 
 # search artist
-async def completed_artist_search(msg: Message, state=FSMContext):
+async def completed_artist_search(msg: Message, state: FSMContext):
     inline_search_result_kb = InlineKeyboardMarkup(row_width=3)
     inline_search_result_kb.add(button(text='🔙Back', callback_data='to_track_tool'))
     await (artists := gather(search_artist_db(msg.text)))
@@ -203,5 +202,4 @@ async def artist_actions(callback: CallbackQuery):
         button(text='🔙Back', callback_data='to_track_tool')
     )
     await callback.message.edit_caption(f'What are you going to do with <code>{callback.data}</code>?',
-                                        parse_mode=ParseMode.HTML,
                                         reply_markup=inline_action_choice)
