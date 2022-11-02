@@ -74,7 +74,6 @@ async def add_artist_confirm(callback: CallbackQuery, state=FSMContext):
 
 # choose vibe
 async def artist_writer(callback: CallbackQuery, state=FSMContext):
-    await callback.answer(f'You selected {callback.data}')
     async with state.proxy() as data:
         data['artist'] = callback.data
     await callback.answer(f'🟢{callback.data} selected')
@@ -84,6 +83,7 @@ async def artist_writer(callback: CallbackQuery, state=FSMContext):
 
 
 async def set_vibe(callback: CallbackQuery, state=FSMContext):
+    await callback.answer('🟢Vibe selected')
     async with state.proxy() as data:
         data['vibe'] = callback.data
         # set some additional data

@@ -53,9 +53,9 @@ async def confirm_artist_add(msg: Message):
 async def vibe_choose_kb(msg: Message):
     inline_vibe_kb = InlineKeyboardMarkup(row_width=1)
     inline_vibe_kb.add(
-        button(text='⚡ｖｉｇｏｒｏｕｓ', callback_data='energy'),
-        button(text='🤤ｃｈｉｌｌ', callback_data='chill'),
-        button(text='😩ｓａｄ', callback_data='sad'),
+        button(text='⚡ｖｉｇｏｒｏｕｓ', callback_data='1'),
+        button(text='🤤ｃｈｉｌｌ', callback_data='2'),
+        button(text='😩ｓａｄ', callback_data='3'),
         button(text='🔙Back', callback_data='back')
     )
     await msg.answer("Now choose track's mood🎭", reply_markup=inline_vibe_kb)
@@ -125,10 +125,10 @@ async def current_mood_kb(callback: CallbackQuery):
     current_vibe = current_vibe.result()[0]
     inline_mood_change = InlineKeyboardMarkup(row_width=1)
     inline_mood_change.add(
-        button(text='⚡ｖｉｇｏｒｏｕｓ ✅' if current_vibe == 'energy' else '⚡ｖｉｇｏｒｏｕｓ',
-               callback_data='energy'),
-        button(text='🤤ｃｈｉｌｌ ✅' if current_vibe == 'chill' else '🤤ｃｈｉｌｌ', callback_data='chill'),
-        button(text='😩ｓａｄ ✅' if current_vibe == 'sad' else '😩ｓａｄ', callback_data='sad'),
+        button(text='⚡ｖｉｇｏｒｏｕｓ ✅' if current_vibe == 1 else '⚡ｖｉｇｏｒｏｕｓ',
+               callback_data="1"),
+        button(text='🤤ｃｈｉｌｌ ✅' if current_vibe == 2 else '🤤ｃｈｉｌｌ', callback_data='2'),
+        button(text='😩ｓａｄ ✅' if current_vibe == 3 else '😩ｓａｄ', callback_data="3"),
         button(text='🔙Back', callback_data='vibe_art_change_back')
     )
     try:
@@ -196,7 +196,6 @@ async def completed_artist_search(msg: Message, state=FSMContext):
 
 # what to do with artist
 async def artist_actions(callback: CallbackQuery):
-    await callback.answer(callback.data)
     inline_action_choice = InlineKeyboardMarkup(row_width=1)
     inline_action_choice.add(
         button('💾Set this as artist', callback_data=f'set_{callback.data}'),

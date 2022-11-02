@@ -56,7 +56,7 @@ async def change_mood(callback: CallbackQuery):
 async def rewrite_mood(callback: CallbackQuery):
     await edit_vibe_db(vibes=callback.data, title=callback.message.audio.title)
     await current_mood_kb(callback)
-    await callback.answer("✅" + callback.data)
+    await callback.answer()
 
 
 # delete
@@ -123,7 +123,7 @@ def register_track_delete(dp: Dispatcher):
     dp.register_callback_query_handler(to_choose, state=FsmEdit.tools_choice,
                                        text=['vibe_art_change_back', 'delete_rejected'])
     # mood change handler
-    dp.register_callback_query_handler(rewrite_mood, state=FsmEdit.tools_choice, text=['energy', 'chill', 'sad'])
+    dp.register_callback_query_handler(rewrite_mood, state=FsmEdit.tools_choice, text=['1', '2', '3'])
     # delete handler
     dp.register_callback_query_handler(delete_start, state=FsmEdit.tools_choice, text='edit_delete')
     dp.register_callback_query_handler(delete_confirmed, state=FsmEdit.tools_choice, text='delete_confirmed')

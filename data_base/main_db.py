@@ -11,9 +11,10 @@ async def db_start():
     id TEXT PRIMARY KEY,
     song TEXT,
     artist TEXT,
-    vibe TEXT,
+    vibe INT,
     date TEXT,
-    admin TEXT
+    admin TEXT,
+    FOREIGN KEY(artist) REFERENCES configures(artists)
     )''')
     base.execute('''CREATE TABLE IF NOT EXISTS users(
     id INT PRIMARY KEY,
@@ -161,4 +162,3 @@ async def register_user_activity(user_id):
     cursor = base.cursor()
     cursor.execute(f'''UPDATE users SET active = 1 WHERE id = {user_id}''')
     base.commit()
-
