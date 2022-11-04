@@ -1,7 +1,7 @@
 import logging
 import asyncio
 
-from helper import dp
+from helper import dp, bot
 from data_base.main_db import db_start
 from handlers.all import register_all
 from handlers.admin_load import register_track_load
@@ -10,7 +10,8 @@ from handlers.admin_delete import register_track_delete
 from handlers.user import register_user
 from handlers.admin_post import register_admin_post
 from filters.admin import AdminFilter
-from helper import bot
+
+from middlewares.middleware_and_antiflood import ThrottlingMiddleware
 
 logger = logging.getLogger(__name__)
 
@@ -37,6 +38,7 @@ async def main():
 
     await db_start()
 
+    dp.middleware.setup(ThrottlingMiddleware())
     register_all_filters(dp)
     register_all_handlers(dp)
     # start

@@ -21,7 +21,7 @@ async def db_start():
     user_artists TEXT,
     user_vibe TEXT,
     active INT,
-    lang TEXT
+    lang INT
     )''')
     base.execute('''CREATE TABLE IF NOT EXISTS configures(
     artists TEXT PRIMARY KEY
@@ -154,7 +154,7 @@ async def get_user_lang(user_id):
     base = sql.connect(location)
     cursor = base.cursor()
     cursor.execute(f"""SELECT lang FROM users WHERE id = {user_id}""")
-    return 'RU' if cursor.fetchone()[0] == 'RU' else 'ENG'
+    return 'RU' if cursor.fetchone()[0] == 1 else 'ENG'
 
 
 async def register_user_activity(user_id):

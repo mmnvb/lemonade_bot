@@ -10,11 +10,11 @@ async def start_lang(msg: Message):
 
 async def register_user(callback: CallbackQuery):
     await register_user_db(callback.message.chat.id, callback.data)
-    await callback.answer('Вы выбрали русский' if callback.data == 'RU' else 'You selected English')
+    await callback.answer('Вы выбрали русский' if callback.data == '1' else 'You selected English')
     await callback.message.delete()
     await user_start(callback.message)
 
 
 def register_all(dp: Dispatcher):
     dp.register_message_handler(start_lang, commands='start')
-    dp.register_callback_query_handler(register_user, text=['RU', 'ENG'])
+    dp.register_callback_query_handler(register_user, text=['1', '0'])

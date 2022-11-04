@@ -12,8 +12,8 @@ user_kb_eng = ReplyKeyboardMarkup(
 
 inline_user_lang = InlineKeyboardMarkup(
     inline_keyboard=[
-        [InlineKeyboardButton('🇷🇺RU', callback_data='RU')],
-        [InlineKeyboardButton('🇬🇧ENG', callback_data='ENG')]
+        [InlineKeyboardButton('🇷🇺RU', callback_data='1')],
+        [InlineKeyboardButton('🇬🇧ENG', callback_data='0')]
     ]
 )
 
