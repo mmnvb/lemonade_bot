@@ -1,5 +1,3 @@
-import asyncio
-
 from aiogram import Dispatcher, types
 from aiogram.dispatcher.handler import CancelHandler, current_handler
 from aiogram.dispatcher.middlewares import BaseMiddleware
@@ -28,7 +26,7 @@ class ThrottlingMiddleware(BaseMiddleware):
     """
     Simple middleware
     """
-    CUSTOM_RATE_LIMIT = .15
+    CUSTOM_RATE_LIMIT = 0.4
 
     def __init__(self, limit=CUSTOM_RATE_LIMIT, key_prefix='antiflood_'):
         self.rate_limit = limit
@@ -83,15 +81,15 @@ class ThrottlingMiddleware(BaseMiddleware):
         # delta = throttled.rate - throttled.delta
 
         # Prevent flooding
-        if throttled.exceeded_count <= 2:
+        if throttled.exceeded_count == 3:
             await message.answer(f'🇬🇧Do not spam please\n❗❗❗\n🇷🇺Не спамьте пожалуйста')
-
-        # Sleep.
-        await asyncio.sleep(2)
-
-        # Check lock status
-        thr = await dispatcher.check_key(key)
-
-        # If current message is not last with current key - do not send message
-        if thr.exceeded_count == throttled.exceeded_count:
-            await message.answer('🇬🇧Unlocked\n🇷🇺Разблокирован')
+        #
+        # # Sleep.
+        # await asyncio.sleep(delta)
+        #
+        # # Check lock status
+        # thr = await dispatcher.check_key(key)
+        #
+        # # If current message is not last with current key - do not send message
+        # if thr.exceeded_count == throttled.exceeded_count:
+        #     await message.answer('🇬🇧Unlocked\n🇷🇺Разблокирован')
