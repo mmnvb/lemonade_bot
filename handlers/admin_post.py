@@ -79,7 +79,8 @@ async def cancel_post(msg: Message, state: FSMContext):
 def register_admin_post(dp: Dispatcher):
     dp.register_message_handler(post_start, is_admin=True, text='✍Post')
     dp.register_message_handler(cancel_post, state=FsmPost.states, commands='cancel')
-    dp.register_message_handler(text_post, state=FsmPost.text, content_types='text')
+    dp.register_message_handler(text_post, lambda msg: len(msg.text) < 1024,
+                                state=FsmPost.text, content_types='text')
     dp.register_message_handler(media_post, state=FsmPost.media,
                                 content_types=['photo', 'video', 'animation'])
     dp.register_message_handler(post, state=FsmPost.decide, commands='post')
