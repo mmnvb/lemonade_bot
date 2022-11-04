@@ -16,5 +16,5 @@ async def register_user(callback: CallbackQuery):
 
 
 def register_all(dp: Dispatcher):
-    dp.register_message_handler(start_lang, commands='start')
+    dp.register_message_handler(start_lang, commands=['start', 'register'])
     dp.register_callback_query_handler(register_user, text=['1', '0'])

@@ -10,6 +10,7 @@ from handlers.admin_delete import register_track_delete
 from handlers.user import register_user
 from handlers.admin_post import register_admin_post
 from filters.admin import AdminFilter
+from filters.user_in_db import UserInDB
 
 from middlewares.middleware_and_antiflood import ThrottlingMiddleware
 
@@ -18,6 +19,7 @@ logger = logging.getLogger(__name__)
 
 def register_all_filters(dispatcher):
     dispatcher.filters_factory.bind(AdminFilter)
+    dispatcher.filters_factory.bind(UserInDB)
 
 
 def register_all_handlers(dispatcher):
