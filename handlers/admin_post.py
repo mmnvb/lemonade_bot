@@ -65,7 +65,7 @@ async def post(msg: Message, state: FSMContext):
         await msg.bot.edit_message_text(f'👷‍♂<i><b>Posting started... {counter}/{l}</b></i>\n'
                                         f'🔒Bot was blocked: <code>{block_counter}</code>',
                                         msg.chat.id, msg.message_id+1)
-        await sleep(10)
+        await sleep(1)
     await msg.answer(f"<b>🧾Results</b>\n\n"
                      f"✅Delivered: <i>{counter-block_counter}/{counter}</i>\n")
     await state.finish()

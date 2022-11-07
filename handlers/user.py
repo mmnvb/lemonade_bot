@@ -36,16 +36,6 @@ async def help_msg(msg: Message):
         await msg.answer(eng_text)
 
 
-async def warning(msg: Message):
-    await (lang := gather(get_user_lang(msg.from_user.id)))
-    if lang.result()[0] == 'RU':
-        await msg.answer('Сначала зарегайся /register')
-    else:
-        await msg.answer('Please register first /register')
-
-
 def register_user(dp: Dispatcher):
     dp.register_message_handler(help_msg, commands='help', in_db=True)
     dp.register_message_handler(give_song, text='✨🎶', in_db=True)
-    dp.register_message_handler(warning, in_db=False)
-    # TODO: fix the filter

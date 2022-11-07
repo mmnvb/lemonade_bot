@@ -14,8 +14,13 @@ class UserInDB(BoundFilter):
 
     async def check(self, obj):
         if self.in_db is None:
-            return True
+            return False
 
         telegram_user: types.User = obj.from_user
         await (answer := gather(check_user_db(user_id=telegram_user.id)))
-        return False if answer.result()[0] is False else True
+
+        try:
+            assert answer.result()[0] is True
+            return True
+        except AssertionError:
+            return False
