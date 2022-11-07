@@ -5,5 +5,15 @@ Admins can upload songs and edit them in every possible way, and users can recei
 ### Contibutors
 - [Bobomurod (Creator, Maintainer)](https://github.com/muminovbob)
 - [Rick-n-Shawty (DataBase Maintainer)](https://github.com/rick-n-shawty)
-### Whose idea was it?
-This [guy's](https://github.com/rick-n-shawty)
+### Implemented features
+#### Admin panel
+- Load track
+- Edit track (author, vibe)
+- Delete (track, author)
+- Post
+- Backup the DataBase
+#### User panel
+- User registartion
+- Simulation of multilingualism (RU, EN) (didn't use i18n)
+- Minimal and understandable interface 
+
