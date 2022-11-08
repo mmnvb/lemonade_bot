@@ -38,4 +38,4 @@ async def help_msg(msg: Message):
 
 def register_user(dp: Dispatcher):
     dp.register_message_handler(help_msg, commands='help', in_db=True)
-    dp.register_message_handler(give_song, text='✨🎶', in_db=True)
+    dp.register_message_handler(give_song, text='✨🎶')
