@@ -1,32 +1,18 @@
-# version: '3.3'
+ version: '3.3'
 
-# services:
+ services:
 
-#   bot:
-#     container_name: "${BOT_CONTAINER_NAME}"
-#     build:
-#       context: .
-#     command:
-#       python main.py
-#     network_mode:
-#       "host"
-#     restart: always
-#     env_file:
-#       - ".env"
-#     volumes:
-#       - .:/src
-      
+   bot:
+     container_name: "${BOT_CONTAINER_NAME}"
+     build:
+       context: .
+     command:
+       python main.py
+     network_mode:
+       "host"
+     restart: always
+     env_file:
+       - ".env"
+     volumes:
+       - .:/src
 
-version: '3.7'
-
-services:
-  telegram-bot-api:
-    image: aiogram/telegram-bot-api:latest
-    volumes:
-      - telegram-bot-api-data:/var/lib/telegram-bot-api
-    ports:
-      - "8081:8081"
-    command:
-      python main.py
-volumes:
-  telegram-bot-api-data:
